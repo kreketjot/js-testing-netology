@@ -1,3 +1,7 @@
-body {
-    color: #999;
+.valid-input-value {
+    color: green;
+}
+
+.invalid-input-value {
+    color: red;
 }

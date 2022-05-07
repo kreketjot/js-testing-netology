@@ -3,29 +3,32 @@ import getCreditCardIssuer from './getCreditCardIssuer';
 
 document.addEventListener('DOMContentLoaded', () => {
   const cardInput = document.getElementById('card-input');
-  const cardValidate = document.getElementById('card-validate');
-  const cardIssuer = document.getElementById('card-issuer');
+  const cardValidate = document.getElementById('card-validate-btn');
+  const cardIssuer = document.getElementById('card-issuer-text');
+  const isValidText = document.getElementById('is-valid-text')
 
   const onInputCard = (event) => {
     const { value } = event.currentTarget;
     // clear
-    cardInput.classList.remove('valid-input-value');
-    cardInput.classList.remove('invalid-input-value');
+    isValidText.textContent = '';
     // check issuer
     const issuer = getCreditCardIssuer(value);
     cardIssuer.innerText = issuer;
   };
 
   const onValidateCard = (event) => {
-    const { value } = event.currentTarget;
+    const { value } = cardInput;
     const isValid = validateCard(value);
     if (isValid) {
-      cardInput.classList.add('valid-input-value');
-      cardInput.classList.remove('invalid-input-value');
+      isValidText.textContent = 'Valid';
+      isValidText.classList.add('valid-input-value');
+      isValidText.classList.remove('invalid-input-value');
     } else {
-      cardInput.classList.remove('valid-input-value');
-      cardInput.classList.add('invalid-input-value');
+      isValidText.textContent = 'Invalid';
+      isValidText.classList.add('invalid-input-value');
+      isValidText.classList.remove('valid-input-value');
     }
+    cardInput.focus();
   };
 
   cardInput.addEventListener('input', onInputCard);
